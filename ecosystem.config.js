@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'average-joes',
-    script: './index.js'
+    script: './app.js'
   }],
   deploy: {
     production: {
