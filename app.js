@@ -7,8 +7,8 @@ var mongoose = require('mongoose');
 
 var Gloves = require('./models/gloves');
 
-var url = 'mongodb://localhost:27017/averagejoes';
-var connect = mongoose.connect(url);
+var url = 'mongodb+srv://admin:carpediem@average-joes-eg6s5.mongodb.net/average-joes?retryWrites=true&w=majority';
+var connect = mongoose.connect(url, { useNewUrlParser: true });
 
 connect.then((db) => {
     console.log("Connected correctly to server");
