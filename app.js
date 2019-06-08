@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 
 var Gloves = require('./models/gloves');
 
-var url = 'mongodb+srv://admin:carpediem@average-joes-eg6s5.mongodb.net/average-joes?retryWrites=true&w=majority';
+var url = '';
 var connect = mongoose.connect(url, { useNewUrlParser: true });
 
 connect.then((db) => {
