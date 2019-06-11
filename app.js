@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
+const Promotions = require('./models/promotions');
 var Gloves = require('./models/gloves');
 
 var url = 'mongodb+srv://admin:carpediem@average-joes-eg6s5.mongodb.net/average-joes?retryWrites=true&w=majority';
@@ -17,6 +18,7 @@ connect.then((db) => {
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gloveRouter = require('./routes/gloveRouter');
+var promotionRouter = require('./routes/promotionRouter');
 
 var app = express();
 
@@ -47,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/gloves', gloveRouter);
+app.use('/promotions', promotionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
