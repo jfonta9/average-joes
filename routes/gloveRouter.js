@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('./cors');
 
 const Gloves = require('../models/gloves');
 
@@ -9,7 +10,8 @@ const gloveRouter = express.Router();
 gloveRouter.use(bodyParser.json());
 
 gloveRouter.route('/')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     Gloves.find({})
     .then((gloves) => {
         res.statusCode = 200;
@@ -18,7 +20,7 @@ gloveRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     Gloves.create(req.body)
     .then((glove) => {
         console.log('Glove Created ', glove);
@@ -28,11 +30,11 @@ gloveRouter.route('/')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     res.statusCode = 403;
     res.end('PUT operation not supported on /gloves');
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Gloves.remove({})
     .then((resp) => {
         res.statusCode = 200;
@@ -43,7 +45,8 @@ gloveRouter.route('/')
 });
 
 gloveRouter.route('/:gloveId')
-.get((req,res,next) => {
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.cors, (req,res,next) => {
     Gloves.findById(req.params.gloveId)
     .then((glove) => {
         res.statusCode = 200;
@@ -52,11 +55,11 @@ gloveRouter.route('/:gloveId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.post((req, res, next) => {
+.post(cors.corsWithOptions, (req, res, next) => {
     res.statusCode = 403;
     res.end('POST operation not supported on /gloves/'+ req.params.gloveId);
 })
-.put((req, res, next) => {
+.put(cors.corsWithOptions, (req, res, next) => {
     Gloves.findByIdAndUpdate(req.params.gloveId, {
         $set: req.body
     }, { new: true })
@@ -67,7 +70,7 @@ gloveRouter.route('/:gloveId')
     }, (err) => next(err))
     .catch((err) => next(err));
 })
-.delete((req, res, next) => {
+.delete(cors.corsWithOptions, (req, res, next) => {
     Gloves.findByIdAndRemove(req.params.gloveId)
     .then((resp) => {
         res.statusCode = 200;
