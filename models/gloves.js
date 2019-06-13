@@ -26,7 +26,7 @@ const gloveSchema = new Schema({
         default: ''
     },
     price: {
-        type: Currency,
+        type: String,
         required: true,
         min: 0
     },
